@@ -4,8 +4,8 @@ import pymongo
 class PyMo:
     def __init__(self, path):
         """
-        *params*  
-        path: path to credentials.json
+        Description: Sets up mongoDB\n
+        `path: string` - path to your credentials.json
         """
         f = open(path)
         data = json.load(f)
@@ -18,11 +18,13 @@ class PyMo:
 
         # Try to connect to mongoDB
         self.mongoClient = pymongo.MongoClient(f"mongodb+srv://{self.credentials['user']}:{self.credentials['password']}@{self.credentials['clusterAddress']}/?retryWrites=true&w=majority")
-        print("Connected to MongoDB!")
         pass
 
     # Private Methods
     def __validate_credentials(self):
+        """
+        Description: Validates user mongoDB credentials by checking if JSON has the required keys (user, password, clusterAddress)
+        """
         keys_list = []
         if not 'user' in self.credentials:
             keys_list.append("user")
