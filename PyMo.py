@@ -14,7 +14,7 @@ class PyMo:
         f.close()
 
         # Check if credentials.json has the keys "user" and "pass"
-        self.__validateCredentials();
+        self.__validate_credentials();
 
         # Try to connect to mongoDB
         self.mongoClient = pymongo.MongoClient(f"mongodb+srv://{self.credentials['user']}:{self.credentials['password']}@{self.credentials['clusterAddress']}/?retryWrites=true&w=majority")
@@ -22,7 +22,7 @@ class PyMo:
         pass
 
     # Private Methods
-    def __validateCredentials(self):
+    def __validate_credentials(self):
         keys_list = []
         if not 'user' in self.credentials:
             keys_list.append("user")
