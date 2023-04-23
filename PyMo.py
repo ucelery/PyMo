@@ -2,7 +2,10 @@ import json
 import pymongo
 
 class PyMo_CRUD:
-    def __init__(self, collection):
+    def __init__(self, collection = None):
+        self.collection = collection
+        
+    def set_collection(self, collection):
         self.collection = collection
     
     def create_document(self, document):
@@ -33,9 +36,6 @@ class PyMo_CRUD:
         `new_document: dict` - new document
         """
         self.collection.replace_one(document, new_document)
-        
-    
-
 
 class PyMo:
     def __init__(self, path):
@@ -54,7 +54,8 @@ class PyMo:
 
         # Try to connect to mongoDB
         self.mongoClient = pymongo.MongoClient(f"mongodb+srv://{self.credentials['user']}:{self.credentials['password']}@{self.credentials['clusterAddress']}/?retryWrites=true&w=majority")
-        pass
+
+        self.crud = PyMo_CRUD()
 
     def init_db(self, db_name):
         """
@@ -69,6 +70,7 @@ class PyMo:
         `collection_name: string` - name of the collection
         """
         self.collection = self.db[collection_name]
+        self.crud = PyMo_CRUD(self.collection)
 
     def init_db_collection(self, db_name, collection_name):
         """
