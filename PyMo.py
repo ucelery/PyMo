@@ -98,7 +98,3 @@ class PyMo:
 
         if len(keys_list) != 0:
             raise Exception(f"Invalid credentials missing key/s: {keys_str}")
-
-pm = PyMo('credentials.json')
-pm.init_db_collection('Employee', 'information')
-print(pm.crud.read_document({'name': 'John'}))
