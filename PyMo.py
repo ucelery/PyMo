@@ -1,6 +1,42 @@
 import json
 import pymongo
 
+class PyMo_CRUD:
+    def __init__(self, collection):
+        self.collection = collection
+    
+    def create_document(self, document):
+        """
+        Description: Adds a document to the collection\n
+        `document: dict` - document to be added
+        """
+        self.collection.insert_one(document)
+        
+    def read_document(self, document):
+        """
+        Description: Reads a document from the collection\n
+        `document: dict` - document to be read
+        """
+        return self.collection.find_one(document)
+        
+    def delete_document(self, document):
+        """
+        Description: Removes a document from the collection\n
+        `document: dict` - document to be removed
+        """
+        self.collection.delete_one(document)
+
+    def update_document(self, document, new_document):
+        """
+        Description: Updates a document in the collection\n
+        `document: dict` - document to be updated\n
+        `new_document: dict` - new document
+        """
+        self.collection.replace_one(document, new_document)
+        
+    
+
+
 class PyMo:
     def __init__(self, path):
         """
