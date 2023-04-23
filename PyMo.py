@@ -20,6 +20,29 @@ class PyMo:
         self.mongoClient = pymongo.MongoClient(f"mongodb+srv://{self.credentials['user']}:{self.credentials['password']}@{self.credentials['clusterAddress']}/?retryWrites=true&w=majority")
         pass
 
+    def init_db(self, db_name):
+        """
+        Description: Initializes a database\n
+        `db_name: string` - name of the database
+        """
+        self.db = self.mongoClient[db_name]
+
+    def init_collection(self, collection_name):
+        """
+        Description: Initializes a collection\n
+        `collection_name: string` - name of the collection
+        """
+        self.collection = self.db[collection_name]
+
+    def init_db_collection(self, db_name, collection_name):
+        """
+        Description: Initializes a database and collection\n
+        `db_name: string` - name of the database\n
+        `collection_name: string` - name of the collection
+        """
+        self.init_db(db_name)
+        self.init_collection(collection_name)
+
     # Private Methods
     def __validate_credentials(self):
         """
